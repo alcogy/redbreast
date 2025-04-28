@@ -1,7 +1,17 @@
 <script lang="ts">
-	import '../app.css';
-
-	let { children } = $props();
+  let { children } = $props();
 </script>
 
 {@render children()}
+
+<style lang="scss">
+  :global(*) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  :global(body) {
+    background-color: #e2e2e2;
+  }
+</style>

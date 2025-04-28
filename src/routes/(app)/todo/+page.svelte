@@ -1,0 +1,23 @@
+<script lang="ts">
+  import { SlidersHorizontal, Settings, LaptopMinimalCheck, ChartColumnBig } from '@lucide/svelte';
+  import PageHeader from "$lib/components/page-header.svelte";
+
+  const onClick = () => console.log('hello');
+</script>
+
+<PageHeader
+  title="TODO"
+  submenus={[
+    {icon: ChartColumnBig, onClick: onClick},
+  ]}
+/>
+
+<div class="content">
+  This is a TODO page.
+</div>
+
+<style lang="scss">
+  .content {
+    padding: 16px;
+  }
+</style>
