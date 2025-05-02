@@ -2,23 +2,23 @@
   import { data } from "$lib/data.svelte";
 	import type { Task } from "$lib/models/todo";
 
+  let task = $state<string>('');
+
   function addTask() {
-    const task = document.querySelector("#task") as HTMLInputElement;
     const newTask: Task = {
-      id: 10,
-      label: task?.value as string,
+      label: task,
       date: new Date(),
       isDone: false,
     }
     data.todo.push(newTask);
-    task.value = "";
+    task = "";
   }
 </script>
 
 <div class="todo-form">
   <div class="form">
     <div>
-      <input type="text" id="task" class="todo-input" placeholder="Enter the task">
+      <input type="text" id="task" class="todo-input" placeholder="Enter the task" bind:value={task}>
     </div>
     <div>
       <button onclick={addTask}>Add task</button>

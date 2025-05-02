@@ -16,9 +16,3 @@
 >
   This is a Customer page.
 </AppLayout>
-
-<style lang="scss">
-  .content {
-    padding: 16px;
-  }
-</style>

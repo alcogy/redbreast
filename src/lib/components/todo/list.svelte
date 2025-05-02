@@ -32,8 +32,7 @@
     {#each tasks as task, index}
       <li>
         <ListItem
-          label={task.label}
-          isDone={task.isDone}
+          task={task}
           onDone={() => onDone(index)}
           onDelete={() => onDelete(index)}
         />

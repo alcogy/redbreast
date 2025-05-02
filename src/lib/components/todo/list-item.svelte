@@ -1,17 +1,31 @@
 <script lang="ts">
-  let { label, isDone, onDone, onDelete } = $props();
+	import type { Task } from "$lib/models/todo";
+  interface Props {
+    task: Task;
+    onDone: () => void;
+    onDelete: () => void;
+  }
+
+  let { task, onDone, onDelete }: Props = $props();
+
+  function pad2(num: number): string {
+    return num.toString().padStart(2, '0');
+  }
+  function format(date: Date): string {
+    return `${pad2(date.getMonth() + 1)}/${pad2(date.getDate())} ${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
+  }
 </script>
 
 <div class="wrap">
   <div class="done-wrap">
     <label>
-      <input type="checkbox" value={isDone} onchange={onDone} />
+      <input type="checkbox" value={task.isDone} onchange={onDone} />
     </label>
   </div>
-  <div class={`text ${isDone && 'done'}`}>{label}</div>
+  <div class={`text ${task.isDone && 'done'}`}>{task.label}</div>
+  <div>{format(task.date as Date)}</div>
   <button onclick={onDelete}>Delete</button>
 </div>
-
 
 <style lang="scss">
   .wrap {
