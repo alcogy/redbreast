@@ -1,21 +1,19 @@
 <script lang="ts">
   import { SlidersHorizontal, Settings, LaptopMinimalCheck, ChartColumnBig } from '@lucide/svelte';
-  import PageHeader from "$lib/components/page-header.svelte";
+  import AppLayout from "$lib/components/app-layout.svelte";
 
   const onClick = () => console.log('hello');
 </script>
 
-<PageHeader
+<AppLayout
   title="PROJECT"
   submenus={[
     {icon: LaptopMinimalCheck, onClick: onClick},
     {icon: ChartColumnBig, onClick: onClick},
   ]}
-/>
-
-<div class="content">
+>
   This is a Project page.
-</div>
+</AppLayout>
 
 <style lang="scss">
   .content {

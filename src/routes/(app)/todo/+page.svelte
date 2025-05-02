@@ -1,23 +1,27 @@
 <script lang="ts">
   import { SlidersHorizontal, Settings, LaptopMinimalCheck, ChartColumnBig } from '@lucide/svelte';
-  import PageHeader from "$lib/components/page-header.svelte";
+  import AppLayout from "$lib/components/app-layout.svelte";
+  import TodoForm from '$lib/components/todo/form.svelte';
+  import TodoList from '$lib/components/todo/list.svelte';
 
   const onClick = () => console.log('hello');
+
 </script>
 
-<PageHeader
+<AppLayout
   title="TODO"
   submenus={[
     {icon: ChartColumnBig, onClick: onClick},
   ]}
-/>
-
-<div class="content">
-  This is a TODO page.
-</div>
+>
+  <TodoForm />
+  <div class="list-wrap">
+    <TodoList />
+  </div>
+</AppLayout>
 
 <style lang="scss">
-  .content {
-    padding: 16px;
+  .list-wrap {
+    margin-top: 24px;
   }
 </style>

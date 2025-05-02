@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { House, Building2, NotepadText, ListChecks, ChartGantt } from '@lucide/svelte';
+  import { LayoutDashboard, Building2, NotepadText, ListChecks, ChartGantt } from '@lucide/svelte';
   let { children } = $props();
 </script>
 
@@ -9,7 +9,7 @@
       <h1>Redbreast - SFA</h1>
     </header>
     <ul class="side-menu">
-      <li><a href="/"><House /><span>HOME</span></a></li>
+      <li><a href="/dashboard"><LayoutDashboard /><span>DASHBOARD</span></a></li>
       <li><a href="/customer"><Building2 /><span>CUSTOMER</span></a></li>
       <li><a href="/project"><NotepadText /><span>PROJECT</span></a></li>
       <li><a href="/activity"><ChartGantt /><span>ACTIVITY</span></a></li>
