@@ -24,7 +24,7 @@
   </div>
   <div class={`text ${task.isDone && 'done'}`}>{task.label}</div>
   <div>{format(task.date as Date)}</div>
-  <button onclick={onDelete}>Delete</button>
+  <button class="btn col-main" onclick={onDelete}>Delete</button>
 </div>
 
 <style lang="scss">
@@ -50,13 +50,5 @@
       text-decoration: line-through;
     }
   }
-  button {
-    border: 0;
-    background-color: #9c2828;
-    color: #fff;
-    font-weight: 700;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
+  
 </style>

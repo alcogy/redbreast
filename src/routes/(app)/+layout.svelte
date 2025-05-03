@@ -37,14 +37,15 @@
   .nav {
     background-color: #903a3a;
     width: 280px;
+    position: sticky;
+    left: 0;
+    top: 0;
+    z-index: 10;
     transition: width 200ms ease;
     &.closed {
       width: 64px;
       & header > h1 {
         display: none;
-      }
-      & .side-menu li a {
-        margin-left: 4px;
       }
       & .side-menu li a span {
         display: none;
@@ -62,6 +63,8 @@
       font-size: 1.3rem;
       color: #fff;
       white-space: nowrap;
+      margin-left: 4px;
+      cursor: default;
     }
     & button {
       color: #fff;
@@ -80,7 +83,7 @@
         align-items: center;
         color: #fff;
         text-decoration: none;
-        padding: 16px;
+        padding: 16px 20px;
         & span {
           font-weight: 700;
           white-space: nowrap;

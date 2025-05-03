@@ -3,6 +3,7 @@
 	import type { Task } from "$lib/models/todo";
 
   let task = $state<string>('');
+  let isDisabled = $derived(task === '');
 
   function addTask() {
     const newTask: Task = {
@@ -18,10 +19,22 @@
 <div class="todo-form">
   <div class="form">
     <div>
-      <input type="text" id="task" class="todo-input" placeholder="Enter the task" bind:value={task}>
+      <input
+        type="text"
+        id="task"
+        class="todo-input"
+        placeholder="Enter the task"
+        bind:value={task}
+      >
     </div>
     <div>
-      <button onclick={addTask}>Add task</button>
+      <button
+        class="btn col-main"
+        onclick={addTask}
+        disabled={isDisabled}
+      >
+        Add task
+      </button>
     </div>
   </div>
 </div>
@@ -44,12 +57,5 @@
   }
   button {
     height: 40px;
-    border: 0;
-    background-color: #9c2828;
-    color: #fff;
-    font-weight: 700;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
   }
 </style>

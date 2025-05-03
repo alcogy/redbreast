@@ -1,6 +1,6 @@
 <script lang="ts">
   import IconButton from './icon-button.svelte';
-  let { title, submenus = [] } = $props();
+  let { title, submenus = [], children } = $props();
 </script>
 
 
@@ -13,7 +13,7 @@
   </ul>
 </div>
 <div class="content">
-  <slot></slot>
+  {@render children()}
 </div>
 
 <style lang="scss">

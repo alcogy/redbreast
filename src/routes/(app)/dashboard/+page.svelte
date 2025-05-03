@@ -14,9 +14,3 @@
 >
   This is a Dashboard page.
 </AppLayout>
-
-<style lang="scss">
-  .content {
-    padding: 16px;
-  }
-</style>
