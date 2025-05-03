@@ -1,13 +1,12 @@
 <script lang="ts">
-  import List from '$lib/components/project/list.svelte';
-	import SearchForm from '$lib/components/project/search-form.svelte';
+  import EditForm from "$lib/components/project/edit-form.svelte";
+  let { data } = $props();
+  const project = data.project;
 </script>
 
 <div class="wrap">
-  <SearchForm />
-  <List />
+  <EditForm data={project} />
 </div>
-
 
 <style lang="scss">
   .wrap {
