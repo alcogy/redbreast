@@ -5,7 +5,7 @@
     id: '',
     title: '',
     desc: '',
-    phase: '',
+    phase: 'unset',
     customer: '',
     representative: '',
   });
