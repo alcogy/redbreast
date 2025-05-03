@@ -1,19 +1,14 @@
 <script lang="ts">
+  import { formatDateMDHM } from "$lib/logics/format";
 	import type { Task } from "$lib/models/todo";
+
   interface Props {
     task: Task;
     onDone: () => void;
     onDelete: () => void;
   }
 
-  let { task, onDone, onDelete }: Props = $props();
-
-  function pad2(num: number): string {
-    return num.toString().padStart(2, '0');
-  }
-  function format(date: Date): string {
-    return `${pad2(date.getMonth() + 1)}/${pad2(date.getDate())} ${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
-  }
+  let { task, onDone, onDelete }: Props = $props();  
 </script>
 
 <div class="wrap">
@@ -23,7 +18,7 @@
     </label>
   </div>
   <div class={`text ${task.isDone && 'done'}`}>{task.label}</div>
-  <div>{format(task.date as Date)}</div>
+  <div>{formatDateMDHM(task.date as Date)}</div>
   <button class="btn col-main" onclick={onDelete}>Delete</button>
 </div>
 

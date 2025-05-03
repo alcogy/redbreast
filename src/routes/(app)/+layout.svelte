@@ -41,7 +41,6 @@
     left: 0;
     top: 0;
     z-index: 10;
-    transition: width 200ms ease;
     &.closed {
       width: 64px;
       & header > h1 {
