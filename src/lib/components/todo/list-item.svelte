@@ -1,24 +1,24 @@
 <script lang="ts">
   import { formatDateMDHM } from "$lib/logics/format";
-	import type { Task } from "$lib/models/todo";
+	import type { Todo } from "$lib/models/todo";
 
   interface Props {
-    task: Task;
+    todo: Todo;
     onDone: () => void;
     onDelete: () => void;
   }
 
-  let { task, onDone, onDelete }: Props = $props();  
+  let { todo, onDone, onDelete }: Props = $props();  
 </script>
 
 <div class="wrap">
   <div class="done-wrap">
     <label>
-      <input type="checkbox" value={task.isDone} onchange={onDone} />
+      <input type="checkbox" value={todo.isDone} onchange={onDone} />
     </label>
   </div>
-  <div class={`text ${task.isDone && 'done'}`}>{task.label}</div>
-  <div>{formatDateMDHM(task.date as Date)}</div>
+  <div class={`text ${todo.isDone && 'done'}`}>{todo.task}</div>
+  <div>{formatDateMDHM(todo.date as Date)}</div>
   <button class="btn col-main" onclick={onDelete}>Delete</button>
 </div>
 

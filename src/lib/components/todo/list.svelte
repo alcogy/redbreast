@@ -1,22 +1,25 @@
 <script lang="ts">
-  import { data } from "$lib/data.svelte";
+	import type { Todo } from "$lib/models/todo";
   import ListItem from "./list-item.svelte";
+
+  let { data }: { data: Todo[] } = $props();
+  let todos = $state(data);
 
   type SortType = 'asc'|'desc';
   let sort = $state<SortType>('asc');
-  let tasks = $derived(sort === 'asc' ? data.todo : [...data.todo].reverse());
+  let list = $derived(sort === 'asc' ? todos : [...todos].reverse());
 
   function onChangeSort(e: Event) {
     sort = (e.target as any).value;
   }
 
   function onDone(index: number) {
-   data.todo = data.todo.map((v, i) => i === index ? {...v, isDone: !v.isDone} : {...v});
+    todos = todos.map((v, i) => i === index ? {...v, isDone: !v.isDone} : {...v});
   }
 
   function onDelete(index: number) {
     if (!confirm('Are you sure? not done?')) return;
-    data.todo = data.todo.filter((_, i) => i !== index);
+    todos = todos.filter((_, i) => i !== index);
   }
 </script>
 
@@ -27,12 +30,12 @@
       <option value="desc">DESC</option>
     </select>
   </div>
-  {#if data.todo.length > 0}
+  {#if todos.length > 0}
   <ul class="list">
-    {#each tasks as task, index}
+    {#each list as item, index}
       <li>
         <ListItem
-          task={task}
+          todo={item}
           onDone={() => onDone(index)}
           onDelete={() => onDelete(index)}
         />

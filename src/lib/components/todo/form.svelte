@@ -1,19 +1,22 @@
 <script lang="ts">
-  import { data } from "$lib/data.svelte";
-	import type { Task } from "$lib/models/todo";
+  import type { Todo } from "$lib/models/todo";
+  let { data }: { data: Todo[] } = $props();
 
   let task = $state<string>('');
   let isDisabled = $derived(task === '');
 
-  function addTask() {
-    const newTask: Task = {
-      label: task,
-      date: new Date(),
-      isDone: false,
-    }
-    data.todo.push(newTask);
+  async function addTask() {
+    
+    const result = await fetch('/todo', {
+      method: 'post',
+      body: JSON.stringify({'task': task}),
+    });
+
+    const newTodo = await result.json() as Todo[];
+    data.push(newTodo[0]);
     task = "";
   }
+
 </script>
 
 <div class="todo-form">
