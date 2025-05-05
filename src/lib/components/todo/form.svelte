@@ -7,13 +7,15 @@
 
   async function addTask() {
     
-    const result = await fetch('/todo', {
+    const response = await fetch('/todo', {
       method: 'post',
       body: JSON.stringify({'task': task}),
     });
 
-    const newTodo = await result.json() as Todo[];
-    data.push(newTodo[0]);
+    const results = await response.json() as Todo[];
+    const newTodo = results[0];
+    newTodo.date = new Date(newTodo.date);
+    data.push(newTodo);
     task = "";
   }
 
