@@ -8,13 +8,13 @@
     onDelete: () => void;
   }
 
-  let { todo, onDone, onDelete }: Props = $props();  
+  let { todo, onDone, onDelete }: Props = $props(); 
 </script>
 
 <div class="wrap">
   <div class="done-wrap">
     <label>
-      <input type="checkbox" value={todo.isDone} onchange={onDone} />
+      <input type="checkbox" checked={todo.isDone} onchange={onDone} />
     </label>
   </div>
   <div class={`text ${todo.isDone && 'done'}`}>{todo.task}</div>
