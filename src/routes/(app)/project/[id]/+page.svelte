@@ -4,15 +4,12 @@
 </script>
 
 <div class="wrap">
-  {#if project !== undefined}
-    {#each Object.keys(project) as key}
-    <!-- TODO -->
-      <p>{project[key] as string}</p>
-    {/each}
-    <div>
-      <a href={`/project/edit/${project.id}`} class="btn col-main">Edit</a>
-    </div>
-  {/if}  
+
+  
+  {#each Object.keys(project) as key}
+  <!-- TODO -->
+    <p>{project[key] as string}</p>
+  {/each}
 </div>
 
 
