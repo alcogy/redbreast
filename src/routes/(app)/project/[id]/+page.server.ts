@@ -1,15 +1,23 @@
 
 import type { PageServerLoad } from './$types';
-import { sampleProjects } from '$lib/models/project';
 import { error } from '@sveltejs/kit';
+import { db } from '$lib/server/db';
+import { eq } from "drizzle-orm";
+import { projects, customers } from '$lib/server/db/schema';
+
 
 export const load: PageServerLoad = async ({ params }) => {
-  const project = sampleProjects.find((v) => v.id === params.id);
+  const project = await db
+			.select()
+			.from(projects)
+			.innerJoin(customers, eq(customers.id, projects.customerId))
+			.where(eq(projects.id, Number(params.id)));
+
   if (project === undefined) {
 		error(404, { message: 'The customer is no found'});
 	}
 	
 	return {
-		project: project,
+		project: project[0],
 	};
 };

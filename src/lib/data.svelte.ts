@@ -1,6 +1,6 @@
 import type { Todo } from "$lib/models/todo";
 import type { Customer } from "$lib/models/customer";
-import { type Project, sampleProjects } from "./models/project";
+import type { Project } from "./models/project";
 
 interface SharedData {
   todos: Todo[],
@@ -12,6 +12,6 @@ interface SharedData {
 export const data = $state<SharedData>({
   todos: [],
   customers: [],
-  projects: sampleProjects,
+  projects: [],
   openNewDialog: false,
 });

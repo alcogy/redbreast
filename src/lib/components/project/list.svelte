@@ -16,7 +16,6 @@
         <th>Desc</th>
         <th>Phase</th>
         <th>Customer</th>
-        <th>Representative</th>
       </tr>
     </thead>
     <tbody>
@@ -32,7 +31,6 @@
         <td>{project.desc}</td>
         <td>{project.phase}</td>
         <td>{project.customer}</td>
-        <td>{project.representative}</td>
       </tr>
       {/each}
     </tbody>

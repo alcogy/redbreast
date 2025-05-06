@@ -50,7 +50,7 @@ export const todos = pgTable('todos', {
 
 export const projects = pgTable('projects', {
 	id: serial('id').primaryKey(),
-	title: varchar('title'),
+	title: varchar('title').notNull(),
   desc: text().notNull(),
   phase: phases(),
   customerId: integer('customer_id').notNull().references(() => customers.id),

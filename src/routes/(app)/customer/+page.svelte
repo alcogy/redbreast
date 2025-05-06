@@ -5,7 +5,6 @@
 
   let { data } = $props();
   d.customers = data.customers;
-
 </script>
 
 <div class="wrap">

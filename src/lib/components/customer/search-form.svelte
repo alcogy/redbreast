@@ -8,7 +8,6 @@
   }
 </script>
 
-
 <div class="wrap">
   <form class="search">
     <div class="item">

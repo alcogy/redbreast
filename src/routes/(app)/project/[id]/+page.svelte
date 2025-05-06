@@ -1,15 +1,15 @@
 <script lang="ts">
   let { data } = $props();
   const project = data.project;
+  
 </script>
 
 <div class="wrap">
-
-  
-  {#each Object.keys(project) as key}
-  <!-- TODO -->
-    <p>{project[key] as string}</p>
-  {/each}
+  <p>ID:{project.projects.id}</p>
+  <p>Title:{project.projects.title}</p>
+  <p>Desc:{project.projects.desc}</p>
+  <p>Phase:{project.projects.phase}</p>
+  <p>Customer:{project.customers.name}</p>
 </div>
 
 

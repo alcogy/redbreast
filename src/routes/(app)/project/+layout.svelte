@@ -2,6 +2,9 @@
   import { TableProperties, Plus } from '@lucide/svelte';
   import AppLayout from "$lib/components/app-layout.svelte";
 	import { goto } from '$app/navigation';
+  import { data } from '$lib/data.svelte';
+  import EditDialog from '$lib/components/project/edit-dialog.svelte';
+
   let { children } = $props();
 
   function onClickTable() {
@@ -9,7 +12,7 @@
   }
 
   function onClickPlus() {
-    goto('/project/edit');
+    data.openNewDialog = true;
   }
 </script>
 
@@ -21,5 +24,9 @@
   ]}
 >
   {@render children()}
+  
+  {#if data.openNewDialog}
+    <EditDialog />
+  {/if}
 </AppLayout>
 
