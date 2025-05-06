@@ -35,9 +35,14 @@
     background-color: #9c2828;
     color: #fff;
   }
+  :global(.col-nega) {
+    background-color: #ccc;
+    color: #222;
+  }
   :global(.textfield) {
     padding: 8px;
     border-radius: 4px;
     border: 1px solid #bbb;
+    width: 100%;
   }
 </style>

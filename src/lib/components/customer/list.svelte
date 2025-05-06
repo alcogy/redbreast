@@ -17,7 +17,7 @@
         <th>Tel</th>
         <th>Email</th>
         <th>Industry</th>
-        <th>Representative</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -34,7 +34,6 @@
         <td>{customer.tel}</td>
         <td>{customer.email}</td>
         <td>{customer.industry}</td>
-        <td>{customer.representative}</td>
       </tr>
       {/each}
     </tbody>

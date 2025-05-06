@@ -12,7 +12,7 @@
 <div class="wrap">
   <div class={`nav ${optStlye}`}>
     <header>
-      <h1>Redbreast - SFA</h1>
+      <h1>Redbreast</h1>
       <button onclick={toggleMenu}><AlignJustify /></button>
     </header>
     <ul class="side-menu">

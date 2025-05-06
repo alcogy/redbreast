@@ -30,10 +30,7 @@
     <p class="header">Tel</p>
     <p class="body">{customer.tel}</p>
   </div>
-  <div class="item">
-    <p class="header">User</p>
-    <p class="body">{customer.representative}</p>
-  </div>
+  
 </div>
 
 <div class="sub-wrap">
@@ -77,7 +74,7 @@
 <style lang="scss">
   .wrap {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 24px;
     background-color: #f5f5f5;

@@ -14,10 +14,11 @@ export const users = pgTable('users', {
 	isAdmin: boolean('is_admin').notNull().default(false),
 });
 
-export const customers = pgTable('projects', {
+export const customers = pgTable('customers', {
 	id: serial('id').primaryKey(),
 	name: varchar('name').notNull(),
 	address: text('address').notNull(),
+	email: varchar('email').notNull(),
 	tel: varchar('tel', { length: 14 }).notNull(),
 	industry: varchar('industry').notNull(),
 });
