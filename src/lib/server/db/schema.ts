@@ -37,7 +37,7 @@ export const activities = pgTable('activities', {
 	date: timestamp('date').notNull().defaultNow(),
 	userId: integer('user_id').notNull().references(() => users.id),
 	customerId: integer('customer_id').notNull().references(() => customers.id),
-	comment: text('comment'),
+	comment: text('comment').notNull(),
 });
 
 export const todos = pgTable('todos', {

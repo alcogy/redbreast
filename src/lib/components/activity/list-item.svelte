@@ -40,9 +40,9 @@
   <div class="body">
     <div class="customer">
       <Building2 color="#666" size={20} />
-      <span>{data.customer}</span>
+      <span>{data.customerName}</span>
     </div>
-    <div class="register">{formatDateYMDHM(data.date)} | {data.user}</div>
+    <div class="register">{formatDateYMDHM(data.date)} | {data.userName}</div>
     <p class="comment">
       {data.comment}
     </p>
