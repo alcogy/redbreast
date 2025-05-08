@@ -57,14 +57,4 @@ export const projects = pgTable('projects', {
   userId: integer('user_id').notNull().references(() => users.id),
 });
 
-export const customerRelation = relations(customers, ({ one, many }) => ({
-	users: one(users),
-	representatives: one(representatives),
-	projects: many(projects),
-	activities: many(activities),
-}));
 
-export const userRelation = relations(users, ({ many }) => ({
-	activities: many(users),
-	todos: many(todos),
-}));

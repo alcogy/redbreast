@@ -5,6 +5,11 @@
 {@render children()}
 
 <style lang="scss">
+  :global(:root) {
+    --col-main: #9c2828;
+    --col-dark: #702424;
+    --col-light: #cc5858;
+  }
   :global(*) {
     margin: 0;
     padding: 0;
@@ -32,7 +37,7 @@
     }
   }
   :global(.col-main) {
-    background-color: #9c2828;
+    background-color: var(--col-main);
     color: #fff;
   }
   :global(.col-nega) {

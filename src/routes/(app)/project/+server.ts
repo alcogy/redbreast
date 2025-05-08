@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
     const customerName = await db.select({name: customers.name}).from(customers).where(eq(customers.id, Number(body.customerId)));
     const insertedProject = result[0];
-    return new Response(JSON.stringify({...insertedProject, customerName: customerName}));
+    return new Response(JSON.stringify({...insertedProject, customerName: customerName[0].name}));
 
   } catch (e) {
     error(500, e as string);

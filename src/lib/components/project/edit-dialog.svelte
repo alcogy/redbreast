@@ -1,6 +1,7 @@
 <script lang="ts">
   import { data } from '$lib/data.svelte';
 	import type { Phase, Project } from '$lib/models/project';
+	import Loading from '../loading.svelte';
   
   let title = $state<string>('');
   let desc = $state<string>('');
@@ -12,6 +13,19 @@
     data.openNewDialog = false;
   }
 
+  // TODO for debug.
+  function wait(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  let promise = fetchCustomers();
+  async function fetchCustomers() {    
+    const response = await fetch('/customer');
+    const data = await response.json();
+    await wait(2000);
+    
+    return data;
+  }
+  
   async function onClickSubmit() {
     try {
       const response = await fetch('/project', {
@@ -39,39 +53,52 @@
       data.openNewDialog = false;
     }
   }
-
 </script>
+
+
 <div class="new-dialog-bg">
-  <div class="box">
-    <div class="dialog-header">
-      <h3>Create Project</h3></div>
-    <div class="dialog-body">
-      <div class="form-set">
-        <div>
-          <p class="label">Title</p>
-          <input type="text" class="textfield" placeholder="(e.g.) The company, The corporation." bind:value={title}>
-        </div>
-        <div>
-          <p class="label">Description</p>
-          <textarea bind:value={desc}></textarea>
-        </div>
-        <div>
-          <p class="label">Phase</p>
-          <select bind:value={phase}>
-            <option value="unset">unset</option>
-            <option value="progress">progress</option>
-            <option value="complete">complete</option>
-            <option value="canceled">canceled</option>
-            <option value="pending">pending</option>
-          </select>
+  {#await promise}
+    <Loading />
+  {:then res}
+    <div class="box">
+      <div class="dialog-header">
+        <h3>Create Project</h3></div>
+      <div class="dialog-body">
+        <div class="form-set">
+          <div>
+            <p class="label">Title</p>
+            <input type="text" name="title" class="textfield" placeholder="(e.g.) The company, The corporation." bind:value={title}>
+          </div>
+          <div>
+            <p class="label">Description</p>
+            <textarea name="desc" bind:value={desc}></textarea>
+          </div>
+          <div>
+            <p class="label">Phase</p>
+            <select name="phase" bind:value={phase}>
+              <option value="unset">unset</option>
+              <option value="progress">progress</option>
+              <option value="complete">complete</option>
+              <option value="canceled">canceled</option>
+              <option value="pending">pending</option>
+            </select>
+          </div>
+          <div>
+            <p class="label">Customer</p>
+            <select name="customerId" bind:value={customerId}>
+              {#each res as customer}
+                <option value="{customer.id}">{customer.name}</option>
+              {/each}
+            </select>
+          </div>
         </div>
       </div>
+      <div class="dialog-footer">
+        <button class="btn col-nega" onclick={onClickCancel}>Cancel</button>
+        <button class="btn col-main" onclick={onClickSubmit}>Submit</button>
+      </div>
     </div>
-    <div class="dialog-footer">
-      <button class="btn col-nega" onclick={onClickCancel}>Cancel</button>
-      <button class="btn col-main" onclick={onClickSubmit}>Submit</button>
-    </div>
-  </div>
+  {/await}
 </div>
 
 

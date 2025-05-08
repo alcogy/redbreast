@@ -115,7 +115,7 @@
         }
         &:hover,
         &.current {
-          background-color: #803434;
+          background-color: var(--col-dark);
         }
       }
     }

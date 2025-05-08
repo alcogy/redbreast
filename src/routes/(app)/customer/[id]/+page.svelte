@@ -3,6 +3,7 @@
   import ActivityList from '$lib/components/activity/activity-list.svelte';
   let { data } = $props();
   const customer = data.customer;
+  const projects = data.projects;
 </script>
 
 <div class="wrap">
@@ -34,36 +35,41 @@
 </div>
 
 <div class="sub-wrap">
-  <div>
+  <div class="box">
     <h2>Active Projects</h2>
-    <div class="box">
-      <div>Project list</div>
-      <div>Project list</div>
-      <div>Project list</div>
-      <div>Project list</div>
-    </div>
+    {#if projects.length > 0}
+    <ul class="project-list">
+      {#each projects as pj}
+        <li>
+          <p class="title"><a href={`/project/${pj.id}`}>{pj.title}</a></p>
+          <p class="desc">{pj.desc}</p>
+        </li>
+      {/each}
+    </ul>
+    {:else}
+      <div>No project...</div>
+    {/if}
   </div>
-
-  <div>
+  
+  <div class="box">
     <h2>Representative</h2>
-    <div class="box">
-      <div class="vertical-list">
-        <div class="item">
-          <p class="header">Name</p>
-          <p class="body">Even Nash</p>
-        </div>
-        <div class="item">
-          <p class="header">Position</p>
-          <p class="body">Leader</p>
-        </div>
-        <div class="item">
-          <p class="header">Name</p>
-          <p class="body">Even Nash</p>
-        </div>
+    <div class="vertical-list">
+      <div class="item">
+        <p class="header">Name</p>
+        <p class="body">Even Nash</p>
+      </div>
+      <div class="item">
+        <p class="header">Position</p>
+        <p class="body">Leader</p>
+      </div>
+      <div class="item">
+        <p class="header">Name</p>
+        <p class="body">Even Nash</p>
       </div>
     </div>
   </div>
 </div>
+
 
 
 <h2>Activities</h2>
@@ -99,6 +105,7 @@
     background-color: #f5f5f5;
     padding: 24px;
     border-radius: 6px;
+    
   }
   h2 {
     font-size: 1.3rem;
@@ -111,5 +118,14 @@
     flex-direction: column;
     gap: 16px;
   }
-  
+  .project-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    & p.desc {
+      font-size: 0.8rem;
+      margin-top: 2px;
+    }
+  }
 </style>

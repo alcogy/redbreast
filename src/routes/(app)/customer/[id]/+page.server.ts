@@ -2,21 +2,21 @@
 import type { PageServerLoad } from './$types';
 import type { Customer } from '$lib/models/customer';
 import { error } from '@sveltejs/kit';
-import { customers } from '$lib/server/db/schema';
+import { customers, projects } from '$lib/server/db/schema';
 import { db } from '$lib/server/db';
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export const load: PageServerLoad = async ({ params }) => {
-  const data = await db
-		.select()
-		.from(customers)
-		.where(eq(customers.id, Number(params.id)));
+  const id = Number(params.id);
+	const customer = await db.select().from(customers).where(eq(customers.id, id));
+	const project = await db.select().from(projects).where(eq(projects.customerId, id)).orderBy(desc(projects.id)).limit(3);
 
-	if (data === undefined) {
+	if (customer === undefined) {
 		error(404, { message: 'The customer is no found'});
 	}
 	
 	return {
-		customer: data[0] as Customer,
+		customer: customer[0] as Customer,
+		projects: project,
 	};
 };
