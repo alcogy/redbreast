@@ -35,15 +35,6 @@
     display: flex;
     gap: 24px;
   }
-  .icon-button {
-    border: 0;
-    background-color: transparent;
-    cursor: pointer;
-    outline: none;
-    &:hover {
-      opacity: 0.5;
-    }
-  }
   .content {
     padding: 16px;
   }

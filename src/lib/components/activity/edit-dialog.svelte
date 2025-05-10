@@ -1,10 +1,19 @@
 <script lang="ts">
   import { data } from '$lib/data.svelte';
 	import type { ActivityType } from '$lib/models/activity';
-  
+  import Loading from '../loading.svelte';
+
   let type = $state<ActivityType>('Tel');
   let customerId = $state<number>(1);
   let comment = $state<string>('');
+
+
+  let promise = fetchCustomers();
+  async function fetchCustomers() {    
+    const response = await fetch('/customer');
+    const data = await response.json();   
+    return data;
+  }
 
   function onClickCancel() {
     data.openNewDialog = false;
@@ -21,7 +30,7 @@
         }),
       });
       const result = await response.json();
-      const newActivity = result[0];
+      const newActivity = result;
       data.activities.push(newActivity);
       
     } catch(e) {
@@ -32,7 +41,11 @@
   }
 
 </script>
+
 <div class="new-dialog-bg">
+  {#await promise}
+    <Loading />
+  {:then res}
   <div class="box">
     <div class="dialog-header">
       <h3>Add Activity</h3></div>
@@ -51,8 +64,9 @@
         <div>
           <p class="label">Customer</p>
           <select name="type" bind:value={customerId}>
-            <option value={1}>me</option>
-            <option value={2}>buinnes</option>
+            {#each res as customer}
+              <option value="{customer.id}">{customer.name}</option>
+            {/each}
           </select>
         </div>
         <div>
@@ -66,6 +80,7 @@
       <button class="btn col-main" onclick={onClickSubmit}>Submit</button>
     </div>
   </div>
+  {/await}
 </div>
 
 
