@@ -3,8 +3,8 @@
 	import type { Activity, ActivityType } from "$lib/models/activity";
   import { formatDateYMDHM } from "$lib/logics/format";
 
-  let { data }: { data: Activity } = $props();
-  
+  let { data, onClickEdit }: { data: Activity, onClickEdit: (id: number) => void  } = $props();
+
   function getIcon(type: ActivityType) {
     switch(type) {
       case 'Tel':
@@ -22,7 +22,7 @@
     }
   }
 
-  let Comp = getIcon(data.type);
+  let Comp = $derived(getIcon(data.type));
 </script>
 
 <div class="activity">
@@ -34,7 +34,7 @@
       <span>{data.type}</span>
     </div>
     <div>
-      <button class="btn col-main">Edit</button>
+      <button class="btn col-main" onclick={() => onClickEdit(data.id)}>Edit</button>
     </div>
   </div>
   <div class="body">

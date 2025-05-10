@@ -1,13 +1,13 @@
 <script lang="ts">
   import ListItem from '$lib/components/activity/list-item.svelte';
   import type { Activity } from '$lib/models/activity';
-  let { data }: { data: Activity[] } = $props();
+  let { data, onClickEdit }: { data: Activity[], onClickEdit: (id: number) => void } = $props();
 </script>
 
 <ul class="list">
   {#each data as activity}
     <li>
-      <ListItem data={activity} />
+      <ListItem data={activity} {onClickEdit} />
     </li>
   {/each}
 </ul>

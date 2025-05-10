@@ -3,9 +3,12 @@
 	import type { ActivityType } from '$lib/models/activity';
   import Loading from '../loading.svelte';
 
-  let type = $state<ActivityType>('Tel');
-  let customerId = $state<number>(1);
-  let comment = $state<string>('');
+  let { activity } = $props();
+    
+  let id = $state<number>(activity?.id || 0);
+  let type = $state<ActivityType>(activity?.type || 'Tel');
+  let customerId = $state<number>(activity?.customerId || 1);
+  let comment = $state<string>(activity?.comment || '');
 
 
   let promise = fetchCustomers();
@@ -21,9 +24,11 @@
 
   async function onClickSubmit() {
     try {
+      const method = id === 0 ? 'post' : 'put';
       const response = await fetch('/activity', {
-        method: 'post',
+        method: method,
         body: JSON.stringify({
+          id: id,
           type: type,
           customerId: customerId,
           comment: comment,
@@ -31,7 +36,17 @@
       });
       const result = await response.json();
       const newActivity = result;
-      data.activities.push(newActivity);
+      if (id === 0) {
+        data.activities.push(newActivity);
+      } else {
+        for (let i = 0; i < data.activities.length; i++) {
+          if (data.activities[i].id === id) {
+            data.activities[i] = newActivity;
+            break;
+          }
+        }
+      }
+      
       
     } catch(e) {
       alert('Error occured');

@@ -2,8 +2,7 @@ import { activities, customers, users } from "$lib/server/db/schema";
 import { db } from '$lib/server/db';
 import type { PageServerLoad } from "./$types";
 import { error } from '@sveltejs/kit';
-import { eq } from "drizzle-orm";
-import type { ActivityType } from "$lib/models/activity";
+import { eq, desc } from "drizzle-orm";
 
 export const load: PageServerLoad = async () => {
   const data = await db
@@ -17,7 +16,8 @@ export const load: PageServerLoad = async () => {
     })
     .from(activities)
     .innerJoin(customers, eq(customers.id, activities.customerId))
-    .innerJoin(users, eq(users.id, activities.userId));
+    .innerJoin(users, eq(users.id, activities.userId))
+    .orderBy(desc(activities.id));
   
   if (data === undefined) {
     error(404, { message: 'The Activity is no found'});
