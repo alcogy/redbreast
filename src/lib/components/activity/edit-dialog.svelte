@@ -2,14 +2,14 @@
   import { data } from '$lib/data.svelte';
 	import type { ActivityType } from '$lib/models/activity';
   import Loading from '../loading.svelte';
+	import { onDestroy } from 'svelte';
 
-  let { activity } = $props();
+  let { activity, clearActivity } = $props();
     
   let id = $state<number>(activity?.id || 0);
   let type = $state<ActivityType>(activity?.type || 'Tel');
   let customerId = $state<number>(activity?.customerId || 1);
   let comment = $state<string>(activity?.comment || '');
-
 
   let promise = fetchCustomers();
   async function fetchCustomers() {    
@@ -46,14 +46,16 @@
           }
         }
       }
-      
-      
     } catch(e) {
       alert('Error occured');
     } finally {
       data.openNewDialog = false;
     }
   }
+
+  onDestroy(() => {
+    clearActivity();
+	});
 
 </script>
 

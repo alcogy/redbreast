@@ -1,16 +1,35 @@
 <script lang="ts">
   import ListItem from '$lib/components/activity/list-item.svelte';
   import type { Activity } from '$lib/models/activity';
-  let { data, onClickEdit }: { data: Activity[], onClickEdit: (id: number) => void } = $props();
+  import { data as d } from '$lib/data.svelte';
+  import EditDialog from '$lib/components/activity/edit-dialog.svelte';
+  
+  let { data }: { data: Activity[] } = $props();
+  let activity = $state(undefined);
+
+  function clearActivity() {
+    activity = undefined;
+  }
+
+  async function onClickEdit(id: number) {
+    const response = await fetch(`/activity/${id}`);
+    const data = await response.json();
+    
+    activity = data.activity;
+    d.openNewDialog = true;
+  }
 </script>
 
 <ul class="list">
-  {#each data as activity}
+  {#each data as item}
     <li>
-      <ListItem data={activity} {onClickEdit} />
+      <ListItem data={item} {onClickEdit} />
     </li>
   {/each}
 </ul>
+{#if d.openNewDialog}
+  <EditDialog {activity} {clearActivity} />
+{/if}
 
 <style lang="scss">
   .list {

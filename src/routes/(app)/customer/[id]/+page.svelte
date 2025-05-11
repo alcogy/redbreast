@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { sampleActivities } from '$lib/models/activity';
   import ActivityList from '$lib/components/activity/activity-list.svelte';
   let { data } = $props();
   const customer = data.customer;
   const projects = data.projects;
+  const activities = data.activities;
 </script>
 
 <div class="wrap">
@@ -73,8 +73,13 @@
 
 
 <h2>Activities</h2>
-<div class="activity">  
-  <ActivityList data={sampleActivities} />
+
+<div class="activity">
+  {#if activities.length > 0}
+    <ActivityList data={activities} />
+  {:else}
+    No data...
+  {/if}
 </div>
 
 <style lang="scss">
