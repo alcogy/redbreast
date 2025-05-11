@@ -37,6 +37,10 @@ body {
   background-color: #ccc;
   color: #222;
 }
+.col-attention {
+  background-color: red;
+  color: #fff;
+}
 .textfield {
   padding: 8px;
   border-radius: 4px;

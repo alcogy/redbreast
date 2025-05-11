@@ -1,42 +1,57 @@
 <script lang="ts">
   import { data } from '$lib/data.svelte';
+	import EditDialog from './edit-dialog.svelte';
+
+  let stateId = $state(0);
+  async function onClickEdit(id: number) {
+    stateId = id;
+    data.openEditDialog = true;
+  }
+
+  async function onClickDelete(id: number) {
+    if (!confirm('Are you sure?')) return;
+    const response = await fetch('/project', {
+      method: 'delete',
+      body: JSON.stringify({id: id}),
+    });
+    if (response.status === 200) {
+      data.projects = data.projects.filter((v) => v.id !== id);
+    }
+  }
 </script>
 
 <div class="wrap">
   <table>
     <thead>
       <tr>
-        <th>
-          <label class="check-wrap">
-            <input type="checkbox">
-          </label>
-        </th>
         <th>ID</th>
         <th>Title</th>
         <th>Desc</th>
         <th>Phase</th>
         <th>Customer</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       {#each data.projects as project}
       <tr>
-        <td>
-          <label class="check-wrap">
-            <input type="checkbox">
-          </label>
-        </td>
         <td><a href={`/project/${project.id}`}>{project.id}</a></td>
         <td>{project.title}</td>
         <td>{project.desc}</td>
         <td>{project.phase}</td>
         <td>{project.customer}</td>
+        <td>
+          <button class="btn col-main" onclick={() => onClickEdit(project.id)}>Edit</button>
+          <button class="btn col-attention" onclick={() => onClickDelete(project.id)}>Delete</button>
+        </td>
       </tr>
       {/each}
     </tbody>
   </table>
 </div>
-
+{#if data.openEditDialog}
+  <EditDialog id={stateId} />
+{/if}
 
 <style lang="scss">
   .wrap {
@@ -78,19 +93,5 @@
     & tr:last-of-type td {
       border: 0;
     }
-  }
-  .check-wrap {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 9999px;
-    & > input[type="checkbox"] {
-      transform: scale(1.3);
-    }
-    &:hover {
-      background-color: #e6e6e6;
-    } 
   }
 </style>

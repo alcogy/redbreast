@@ -1,45 +1,59 @@
 <script lang="ts">
   import { data } from '$lib/data.svelte';
+  import EditDialog from './edit-dialog.svelte';
+
+  let stateId = $state(0);
+  async function onClickEdit(id: number) {
+    stateId = id;
+    data.openEditDialog = true;
+  }
+
+  async function onClickDelete(id: number) {
+    if (!confirm('Are you sure?')) return;
+    const response = await fetch('/customer', {
+      method: 'delete',
+      body: JSON.stringify({id: id}),
+    });
+    if (response.status === 200) {
+      data.customers = data.customers.filter((v) => v.id !== id);
+    }
+  }
 </script>
 
 <div class="wrap">
   <table>
     <thead>
       <tr>
-        <th>
-          <label class="check-wrap">
-            <input type="checkbox">
-          </label>
-        </th>
         <th>ID</th>
         <th>Company name</th>
         <th>Address</th>
         <th>Tel</th>
         <th>Email</th>
         <th>Industry</th>
-        
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       {#each data.customers as customer}
       <tr>
-        <td>
-          <label class="check-wrap">
-            <input type="checkbox">
-          </label>
-        </td>
         <td><a href={`/customer/${customer.id}`}>{customer.id}</a></td>
         <td>{customer.name}</td>
         <td>{customer.address}</td>
         <td>{customer.tel}</td>
         <td>{customer.email}</td>
         <td>{customer.industry}</td>
+        <td>
+          <button class="btn col-main" onclick={() => onClickEdit(customer.id)}>Edit</button>
+          <button class="btn col-attention" onclick={() => onClickDelete(customer.id)}>Delete</button>
+        </td>
       </tr>
       {/each}
     </tbody>
   </table>
 </div>
-
+{#if data.openEditDialog}
+  <EditDialog id={stateId} />
+{/if}
 
 <style lang="scss">
   .wrap {
@@ -81,19 +95,5 @@
     & tr:last-of-type td {
       border: 0;
     }
-  }
-  .check-wrap {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 9999px;
-    & > input[type="checkbox"] {
-      transform: scale(1.3);
-    }
-    &:hover {
-      background-color: #e6e6e6;
-    } 
   }
 </style>

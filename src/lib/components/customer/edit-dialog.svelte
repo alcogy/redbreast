@@ -1,21 +1,29 @@
 <script lang="ts">
   import { data } from '$lib/data.svelte';
+	import Loading from '../loading.svelte';
   
+  let { id = undefined } = $props();
+
   let name = $state<string>('');
   let address = $state<string>('');
   let tel = $state<string>('');
   let email = $state<string>('');
   let industry = $state<string>('');
 
+  let dialogTitle = data.openNewDialog ? 'Create Customer' : 'Edit Customer';
+
   function onClickCancel() {
     data.openNewDialog = false;
+    data.openEditDialog = false;
   }
 
   async function onClickSubmit() {
     try {
+      const method = data.openNewDialog ? 'post' : 'put';
       const response = await fetch('/customer', {
-        method: 'post',
+        method: method,
         body: JSON.stringify({
+          id: id,
           name: name,
           address: address,
           tel: tel,
@@ -25,19 +33,47 @@
       });
       const result = await response.json();
       const newCustomer = result[0];
-      data.customers.push(newCustomer);
+      if (data.openNewDialog) {
+        data.customers.push(newCustomer);
+      } else {
+        const index = data.customers.findIndex((v) => v.id === newCustomer.id);
+        if (index >= 0) data.customers[index] = newCustomer;        
+      }
+      
     } catch(e) {
+      console.error(e);
       alert('Error occured');
     } finally {
       data.openNewDialog = false;
+      data.openEditDialog = false;
     }
+  }
+
+  let promise = fetchData();
+  async function fetchData() {
+    const url = data.openNewDialog ? '/customer' : `/customer?id=${id}`
+    const response = await fetch(url);
+    const result = await response.json();
+    if (data.openEditDialog) {
+      name = result.name;
+      address = result.address;
+      tel = result.tel;
+      email = result.email;
+      industry = result.industry;
+    }
+    
+    return result;
   }
 
 </script>
 <div class="new-dialog-bg">
+  {#await promise}
+    <Loading />
+  {:then}
   <div class="box">
     <div class="dialog-header">
-      <h3>Create Customer</h3></div>
+      <h3>{dialogTitle}</h3>
+    </div>
     <div class="dialog-body">
       <div class="form-set">
         <div>
@@ -67,6 +103,7 @@
       <button class="btn col-main" onclick={onClickSubmit}>Submit</button>
     </div>
   </div>
+  {/await}
 </div>
 
 

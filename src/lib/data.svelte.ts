@@ -9,6 +9,7 @@ interface SharedData {
   projects: Project[],
   activities: Activity[],
   openNewDialog: boolean;
+  openEditDialog: boolean;
 }
 
 export const data = $state<SharedData>({
@@ -17,4 +18,5 @@ export const data = $state<SharedData>({
   projects: [],
   activities: [],
   openNewDialog: false,
+  openEditDialog: false,
 });

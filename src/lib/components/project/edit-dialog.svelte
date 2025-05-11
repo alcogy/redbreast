@@ -3,38 +3,48 @@
 	import type { Phase, Project } from '$lib/models/project';
 	import Loading from '../loading.svelte';
   
+  let { id = undefined } = $props();
+
   let title = $state<string>('');
   let desc = $state<string>('');
   let phase = $state<Phase>('unset');
   let customerId = $state<number>(1);
   let userId = $state<number>(1);
 
+  let dialogTitle = data.openNewDialog ? 'Create Project' : 'Edit Project';
+
   function onClickCancel() {
     data.openNewDialog = false;
+    data.openEditDialog = false;
   }
 
-  // TODO for debug.
-  function wait(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-  let promise = fetchCustomers();
-  async function fetchCustomers() {    
-    const response = await fetch('/customer');
-    const data = await response.json();
-    await wait(2000);
+  let promise = fetchData();
+  async function fetchData() {
+    const url = data.openNewDialog ? '/project' : `/project?id=${id}`
+    const response = await fetch(url);
+    const result = await response.json();
+    if (data.openEditDialog) {
+      title = result.project.title;
+      desc = result.project.desc;
+      phase = result.project.phase;
+      customerId = result.project.customerId;
+      userId = result.project.userId;
+    }
     
-    return data;
+    return result;
   }
   
   async function onClickSubmit() {
     try {
+      const method = data.openNewDialog ? 'post' : 'put';
       const response = await fetch('/project', {
-        method: 'post',
+        method: method,
         body: JSON.stringify({
+          id: id ? id : 0,
           title: title,
           desc: desc,
           phase: phase,
-          customerId:customerId,
+          customerId: customerId,
           userId: userId,
         }),
       });
@@ -46,11 +56,17 @@
         phase: result.phase,
         customer: result.customerName,
       };
-      data.projects.push(newProject);
+      if (data.openNewDialog) {
+        data.projects.push(newProject);
+      } else {
+        const index = data.projects.findIndex((v) => v.id === newProject.id);
+        if (index >= 0) data.projects[index] = newProject;        
+      }
     } catch(e) {
       alert('Error occured');
     } finally {
       data.openNewDialog = false;
+      data.openEditDialog = false;
     }
   }
 </script>
@@ -59,10 +75,11 @@
 <div class="new-dialog-bg">
   {#await promise}
     <Loading />
-  {:then res}
+  {:then result}
     <div class="box">
       <div class="dialog-header">
-        <h3>Create Project</h3></div>
+        <h3>{dialogTitle}</h3>
+      </div>
       <div class="dialog-body">
         <div class="form-set">
           <div>
@@ -86,7 +103,7 @@
           <div>
             <p class="label">Customer</p>
             <select name="customerId" bind:value={customerId}>
-              {#each res as customer}
+              {#each result.customers as customer}
                 <option value="{customer.id}">{customer.name}</option>
               {/each}
             </select>
