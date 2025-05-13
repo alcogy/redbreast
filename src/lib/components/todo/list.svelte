@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { Todo } from "$lib/models/todo";
   import ListItem from "./list-item.svelte";
+  import type { SortType } from "$lib/models/common";
 
   let { data }: { data: Todo[] } = $props();
   let todos = $state(data);
 
-  type SortType = 'asc'|'desc';
+
   let sort = $state<SortType>('asc');
   let list = $derived([...todos].sort((a, b) => sort === 'asc' ? a.date.getTime() - b.date.getTime() : b.date.getTime() - a.date.getTime()));
 

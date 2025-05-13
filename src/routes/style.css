@@ -12,6 +12,15 @@
 body {
   background-color: #e2e2e2;
 }
+a {
+  color: var(--col-main);
+  text-decoration: none;
+  font-weight: 500;
+}
+a:hover {
+  color: var(--col-light);
+  text-decoration: underline;
+}
 .btn {
   border: 0;
   font-weight: 700;

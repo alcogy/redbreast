@@ -16,44 +16,46 @@
       <h1>Redbreast</h1>
       <button onclick={toggleMenu}><AlignJustify /></button>
     </header>
-    <ul class="side-menu">
-      <li>
-        <a href="/dashboard" class={page.url.pathname.indexOf('/dashboard') >= 0 ? 'current' : ''}>
-          <LayoutDashboard />
-          <span>DASHBOARD</span>
-        </a>
-      </li>
-      <li>
-        <a href="/customer" class={page.url.pathname.indexOf('/customer') >= 0 ? 'current' : ''}>
-          <Building2 />
-          <span>CUSTOMER</span>
-        </a>
-      </li>
-      <li>
-        <a href="/project" class={page.url.pathname.indexOf('/project') >= 0 ? 'current' : ''}>
-          <NotepadText />
-          <span>PROJECT</span>
-        </a>
-      </li>
-      <li>
-        <a href="/activity" class={page.url.pathname.indexOf('/activity') >= 0 ? 'current' : ''}>
-          <ChartGantt />
-          <span>ACTIVITY</span>
-        </a>
-      </li>
-      <li>
-        <a href="/todo" class={page.url.pathname.indexOf('/todo') >= 0 ? 'current' : ''}>
-          <ListChecks />
-          <span>TODO</span>
-        </a>
-      </li>
-    </ul>
+    <div class="side-menu">
+      <ul>
+        <li>
+          <a href="/dashboard" class={page.url.pathname.indexOf('/dashboard') >= 0 ? 'current' : ''}>
+            <LayoutDashboard />
+            <span>DASHBOARD</span>
+          </a>
+        </li>
+        <li>
+          <a href="/customer" class={page.url.pathname.indexOf('/customer') >= 0 ? 'current' : ''}>
+            <Building2 />
+            <span>CUSTOMER</span>
+          </a>
+        </li>
+        <li>
+          <a href="/project" class={page.url.pathname.indexOf('/project') >= 0 ? 'current' : ''}>
+            <NotepadText />
+            <span>PROJECT</span>
+          </a>
+        </li>
+        <li>
+          <a href="/activity" class={page.url.pathname.indexOf('/activity') >= 0 ? 'current' : ''}>
+            <ChartGantt />
+            <span>ACTIVITY</span>
+          </a>
+        </li>
+        <li>
+          <a href="/todo" class={page.url.pathname.indexOf('/todo') >= 0 ? 'current' : ''}>
+            <ListChecks />
+            <span>TODO</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
   </div>  
   <main>
     {@render children()}
   </main>
 </div>
-
 
 <style lang="scss">
   .wrap {
@@ -63,6 +65,7 @@
   .nav {
     background-color: #903a3a;
     width: 280px;
+    height: 100vh;
     position: sticky;
     left: 0;
     top: 0;
@@ -100,7 +103,13 @@
     }
   }
   .side-menu {
-    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 56px);
+    & ul {
+      list-style: none;
+    }
     & li {
       & a {
         display: flex;

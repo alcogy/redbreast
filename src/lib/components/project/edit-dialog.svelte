@@ -136,7 +136,7 @@
     padding: 24px 32px;
     background-color: #f5f5f5;
     border-radius: 8px;
-    min-width: 640px;
+    min-width: 720px;
   }
   .dialog-body {
     margin: 24px 0;

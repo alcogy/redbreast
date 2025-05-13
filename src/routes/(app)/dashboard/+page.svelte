@@ -11,19 +11,15 @@
     return customer !== undefined ? customer.name : '';
   }
 
-  const onClick = () => console.log('hello');
 </script>
 
 <AppLayout
   title="Dashboard"
-  submenus={[
-    {icon: LaptopMinimalCheck, onClick: onClick},
-    {icon: ChartColumnBig, onClick: onClick},
-  ]}
+  submenus={[]}
 >
   <div class="wrap">
     <div>
-      <p class="caption">Todos</p>
+      <p class="caption">Todo</p>
       <ul class="box-list">
         {#each data.todos as todo}
         <li>

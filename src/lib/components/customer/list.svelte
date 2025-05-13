@@ -37,12 +37,12 @@
       {#each data.customers as customer}
       <tr>
         <td><a href={`/customer/${customer.id}`}>{customer.id}</a></td>
-        <td>{customer.name}</td>
+        <td class="nowrap">{customer.name}</td>
         <td>{customer.address}</td>
         <td>{customer.tel}</td>
         <td>{customer.email}</td>
         <td>{customer.industry}</td>
-        <td>
+        <td class="nowrap">
           <button class="btn col-main" onclick={() => onClickEdit(customer.id)}>Edit</button>
           <button class="btn col-attention" onclick={() => onClickDelete(customer.id)}>Delete</button>
         </td>
@@ -72,7 +72,10 @@
       text-align: left;
       background-color: #f5f5f6;
       border-bottom: 1px solid #ddd;
-      white-space: nowrap;
+      word-wrap: break-word;
+      &.nowrap {
+        white-space: nowrap;
+      }
     }
     & thead {
       position: sticky;

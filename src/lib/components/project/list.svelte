@@ -38,9 +38,9 @@
         <td><a href={`/project/${project.id}`}>{project.id}</a></td>
         <td>{project.title}</td>
         <td>{project.desc}</td>
-        <td>{project.phase}</td>
-        <td>{project.customer}</td>
-        <td>
+        <td class="nowrap">{project.phase}</td>
+        <td class="nowrap">{project.customer}</td>
+        <td class="nowrap">
           <button class="btn col-main" onclick={() => onClickEdit(project.id)}>Edit</button>
           <button class="btn col-attention" onclick={() => onClickDelete(project.id)}>Delete</button>
         </td>
@@ -70,7 +70,10 @@
       text-align: left;
       background-color: #f5f5f6;
       border-bottom: 1px solid #ddd;
-      white-space: nowrap;
+      word-wrap: break-word;
+      &.nowrap {
+        white-space: nowrap;
+      }
     }
     & thead {
       position: sticky;
