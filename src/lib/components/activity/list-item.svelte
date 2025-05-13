@@ -1,36 +1,17 @@
 <script lang="ts">
-  import { PhoneCall, BriefcaseBusiness, Mail, Handshake, MessageSquareShare, LaptopMinimalCheck, Building2 } from '@lucide/svelte';
-	import type { Activity, ActivityType } from "$lib/models/activity";
+  import { Building2 } from '@lucide/svelte';
+	import type { Activity } from "$lib/models/activity";
   import { formatDateYMDHM } from "$lib/logics/format";
+  import Icons from "./icons.svelte";
 
   let { data, onClickEdit }: { data: Activity, onClickEdit: (id: number) => void  } = $props();
-
-  function getIcon(type: ActivityType) {
-    switch(type) {
-      case 'Tel':
-        return PhoneCall;
-      case 'Visit':
-        return BriefcaseBusiness;
-      case 'E-mail':
-        return Mail;
-      case 'SNS':
-        return MessageSquareShare;
-      case 'Negotiation':
-        return Handshake;
-      default:
-        return LaptopMinimalCheck;
-    }
-  }
-
-  let Comp = $derived(getIcon(data.type));
+  let type = $derived(data.type);
 </script>
 
 <div class="activity">
   <div class="header">
     <div class="type">
-      <div class="icon">
-        <Comp size={20} color="#f5f5f5" />
-      </div>
+      <Icons {type} />
       <span>{data.type}</span>
     </div>
     <div>
@@ -67,15 +48,6 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    & > .icon {
-      background-color: #966;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 4px;
-    }
     & > span {
       font-weight: bold;
       color: #333;

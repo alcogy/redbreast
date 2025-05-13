@@ -7,7 +7,7 @@ import { eq, desc } from "drizzle-orm";
 export const load: PageServerLoad = async () => {
   const cu = await db.select().from(customers).orderBy(desc(customers.id));
   const pj = await db.select().from(projects).where(eq(projects.userId, 1)).orderBy(desc(projects.id));
-  const ac = await db.select().from(activities).where(eq(activities.userId, 1));
+  const ac = await db.select().from(activities).where(eq(activities.userId, 1)).orderBy(desc(activities.id));
   const td = await db.select().from(todos).where(eq(todos.userId, 1));
 
   return {

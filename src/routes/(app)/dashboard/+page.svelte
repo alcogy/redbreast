@@ -2,8 +2,10 @@
   import { LaptopMinimalCheck, ChartColumnBig } from '@lucide/svelte';
   import AppLayout from "$lib/components/app-layout.svelte";
   import type { PageProps } from './$types';
-  let { data }: PageProps = $props();
+  import ActivityItem from '$lib/components/dashboard/activity-item.svelte';
 
+  let { data }: PageProps = $props();
+  
   function getCustomerName(customerId: number) {
     const customer = data.customers.find((v) => v.id === customerId);
     return customer !== undefined ? customer.name : '';
@@ -26,7 +28,7 @@
         {#each data.todos as todo}
         <li>
           <p class={`${todo.isDone && 'done'}`}>{todo.task}</p>
-          <p>{new Date(todo.date).toLocaleDateString()}</p>
+          <p class="date">{new Date(todo.date).toLocaleDateString()}</p>
         </li>
         {/each}
       </ul>
@@ -37,6 +39,8 @@
         {#each data.projects as project}
         <li>
           <a href={`/project/${project.id}`}>{project.title}</a>
+          <p>{project.phase}</p>
+          <p>{getCustomerName(project.customerId)}</p>
         </li>
         {/each}
       </ul>
@@ -45,10 +49,7 @@
       <p class="caption">Activity</p>
       <ul class="box-list">
         {#each data.activities as activity}
-        <li>
-          <p>{activity.type} | {getCustomerName(activity.customerId)}</p>
-          <p>{activity.comment}</p>
-        </li>
+          <ActivityItem {activity} {getCustomerName} />
         {/each}
       </ul>
     </div>
@@ -80,5 +81,9 @@
   }
   p.done {
     text-decoration: line-through;
+  }
+  p.date {
+    font-size: 0.8rem;
+    color: #555;
   }
 </style>
