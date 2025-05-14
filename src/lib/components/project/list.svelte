@@ -24,7 +24,6 @@
   <table>
     <thead>
       <tr>
-        <th>ID</th>
         <th>Title</th>
         <th>Desc</th>
         <th>Phase</th>
@@ -35,8 +34,7 @@
     <tbody>
       {#each data.projects as project}
       <tr>
-        <td><a href={`/project/${project.id}`}>{project.id}</a></td>
-        <td>{project.title}</td>
+        <td><a href={`/project/${project.id}`}>{project.title}</a></td>
         <td>{project.desc}</td>
         <td class="nowrap">{project.phase}</td>
         <td class="nowrap">{project.customer}</td>

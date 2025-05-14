@@ -24,7 +24,6 @@
   <table>
     <thead>
       <tr>
-        <th>ID</th>
         <th>Company name</th>
         <th>Address</th>
         <th>Tel</th>
@@ -36,8 +35,7 @@
     <tbody>
       {#each data.customers as customer}
       <tr>
-        <td><a href={`/customer/${customer.id}`}>{customer.id}</a></td>
-        <td class="nowrap">{customer.name}</td>
+        <td class="nowrap"><a href={`/customer/${customer.id}`}>{customer.name}</a></td>
         <td>{customer.address}</td>
         <td>{customer.tel}</td>
         <td>{customer.email}</td>
