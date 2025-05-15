@@ -3,9 +3,12 @@
   import type { PageProps } from './$types';
   import ActivityItem from '$lib/components/dashboard/activity-item.svelte';
   import ProjectItem from '$lib/components/dashboard/project-item.svelte';
-
-  let { data }: PageProps = $props();
+  import TodoForm from '$lib/components/todo/form.svelte';
+  import TodoList from '$lib/components/todo/list.svelte';
   
+  let { data }: PageProps = $props();
+  let todos = $state(data.todos);
+
   function getCustomerName(customerId: number) {
     const customer = data.customers.find((v) => v.id === customerId);
     return customer !== undefined ? customer.name : '';
@@ -20,14 +23,10 @@
   <div class="wrap">
     <div class="left-wrap">
       <p class="caption">Todo</p>
-      <ul class="box-list">
-        {#each data.todos as todo}
-        <li>
-          <p class={`${todo.isDone && 'done'}`}>{todo.task}</p>
-          <p class="date">{new Date(todo.date).toLocaleDateString()}</p>
-        </li>
-        {/each}
-      </ul>
+      <div class="list-wrap">
+        <TodoForm data={todos} />
+        <TodoList data={todos} />
+      </div>
     </div>
     <div class="right-wrap">
       <div>
@@ -85,5 +84,10 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+  }
+  .list-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 </style>

@@ -41,6 +41,9 @@
       <option value="asc">ASC</option>
       <option value="desc">DESC</option>
     </select>
+    <div class="status">
+      <p>Done: {list.filter((v) => v.isDone).length} / All: {list.length}</p>
+    </div>
   </div>
   {#if todos.length > 0}
   <ul class="list">
@@ -61,6 +64,9 @@
 
 <style lang="scss">
   .sort {
+    display: flex;
+    gap: 16px;
+    align-items: center;
     margin-bottom: 16px;
   }
   .list {

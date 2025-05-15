@@ -6,7 +6,6 @@
   let isDisabled = $derived(task === '');
 
   async function addTask() {
-    
     const response = await fetch('/todo', {
       method: 'post',
       body: JSON.stringify({'task': task}),

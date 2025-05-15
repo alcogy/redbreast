@@ -11,7 +11,7 @@
   let { todo, onDone, onDelete }: Props = $props(); 
 </script>
 
-<div class="wrap">
+<div class={`wrap ${todo.isDone && 'done'}`}>
   <div class="done-wrap">
     <label>
       <input type="checkbox" checked={todo.isDone} onchange={onDone} />
@@ -31,6 +31,9 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    &.done {
+      background-color: #aaa !important;
+    }
   }
   .done-wrap {
     display: flex;
