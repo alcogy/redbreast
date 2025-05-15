@@ -3,8 +3,8 @@
     <p class="caption">Sign in</p>
     <form method="post">
       <div>
-        <label for="id">ID</label>
-        <input type="text" name="id" placeholder="Enter your ID.">
+        <label for="id">Email</label>
+        <input type="text" name="email" placeholder="Enter your email.">
       </div>
       <div>
         <label for="password">Password</label>

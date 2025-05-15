@@ -32,17 +32,25 @@
       <div>
         <p class="caption">Activity</p>
         <ul class="box-list">
+          {#if data.activities.length > 0}
           {#each data.activities as activity}
             <ActivityItem {activity} {getCustomerName} />
           {/each}
+          {:else}
+            <p>No data...</p>
+          {/if}
         </ul>
       </div>
       <div>
         <p class="caption">Projects</p>
         <ul class="box-list">
+          {#if data.projects.length > 0}
           {#each data.projects as project}
             <ProjectItem {project} {getCustomerName} />
           {/each}
+          {:else}
+            <p>No data...</p>
+          {/if}
         </ul>
       </div>
     </div>

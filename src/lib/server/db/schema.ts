@@ -8,7 +8,8 @@ export const phases = pgEnum('phases', ['unset', 'progress', 'complete', 'cancel
 export const users = pgTable('users', {
 	id: serial('id').primaryKey(),
 	name: varchar('name').notNull(),
-	email: varchar('email').notNull(),
+	email: varchar('email').notNull().unique(),
+	password: varchar('password').notNull(),
 	position: userPositions().default('Member'),
 	tel: varchar('', { length: 14 }).notNull(),
 	isAdmin: boolean('is_admin').notNull().default(false),
